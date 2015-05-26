@@ -7,7 +7,7 @@
     text-face-name: @sans_italic;
     text-name: [name];
     text-halo-radius: 2;
-    text-halo-fill: fadeout(white, 30%);
+    text-halo-fill: fadeout(white, 10%);
     text-placement-type: simple;
     text-placements: "X,N,S,NE,SE,NW,SW";
     text-min-distance: 20;
@@ -26,7 +26,7 @@
       text-face-name: @sans;
     }
     
-    text-size: 10;
+    text-size: 11;
     [place="city"] {
       [zoom<8] { text-size: 14; }
       [zoom>=8] { text-size: 16; }
@@ -68,13 +68,13 @@
       shield-face-name: @sans;
     }
     
-    shield-size: 10;
+    shield-size: 11;
     [place="town"] {
-      [zoom<8] { shield-size: 10; }
-      [zoom>=8][zoom<12] { shield-size: 12; }
+      [zoom<8] { shield-size: 11; }
+      [zoom>=8][zoom<12] { shield-size: 13; }
     }
     [place="village"] {
-      [zoom>=10][zoom<12] { shield-size: 11; }
+      [zoom>=10][zoom<12] { shield-size: 12; }
     }
     [place="hamlet"] { shield-min-distance: 30; }
   }
