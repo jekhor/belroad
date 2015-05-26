@@ -11,41 +11,123 @@
     line-color:@gray;
   }
   
-  [highway="tertiary"][zoom>=12],
+ 
   [highway="secondary"][zoom<15][zoom>=9],
   [highway="primary"][zoom>=7][zoom<9],
   [highway="trunk"][zoom<7],
   [highway="motorway"][zoom<7],
   [highway="secondary_link"][zoom>=12],
   [highway="tertiary_link"][zoom>=12],
-  [highway="motorway_link"][zoom>=12],
-  [highway="trunk_link"][zoom>=12],
-  [highway="primary_link"][zoom>=12] {
+    [highway="primary_link"][zoom>=12] {
     line-width:1.5;
     [zoom<10] { line-width: 1.1; }
-    line-color:black;
+    line-color:@gray;
   }
   
-  [highway="secondary"][zoom>=15],
-  [highway="trunk"][zoom>=7][zoom<12],
-  [highway="motorway"][zoom>=7][zoom<12],
-  [highway="primary"][zoom>=9][zoom<15] {
+  [highway="secondary"][zoom>=10] {
     ::casing {
-      line-width: 3;
-      [zoom<9], [highway="primary"][zoom<12] { line-width: 2.5; }
-      line-color: black;
+      line-width: 4;
+      line-color: @darkgray;
       line-cap: butt;
       line-join: round;
     }
     ::inner {
-      line-width: 1.7;
-      [zoom<9], [highway="primary"][zoom<12] { line-width: 1.3; }
+      line-width: 3.5;
+      line-color: @orange;
+      line-cap: round;
+      line-join: round;
+    }
+  }
+  
+ 
+  [highway="tertiary"][zoom>=10] {
+    ::casing {
+      line-width: 3;
+      line-color: @darkgray;
+      line-cap: butt;
+      line-join: round;
+    }
+    ::inner {
+      line-width: 2.5;
       line-color: @yellow;
       line-cap: round;
       line-join: round;
     }
   }
   
+  [highway="unclassified"][zoom>=10] {
+    ::casing {
+      line-width: 3;
+      line-color: @darkgray;
+      line-cap: butt;
+      line-join: round;
+    }
+    ::inner {
+      line-width: 2.5;
+      line-color: white;
+      line-cap: round;
+      line-join: round;
+    }
+  }
+    
+  [highway="trunk"][zoom>=7],
+  [highway="motorway"][zoom>=7] {
+    ::inner0 {
+      line-width: 7;
+      line-color: @redroad;
+      line-cap: butt;
+      line-join: round;
+    }
+    ::inner1 {
+      line-width: 1.5;
+      [zoom<14] {line-width: 3}
+      line-color: @yellow;
+      line-cap: butt;
+      line-join: round;
+    }
+    ::inner2[zoom<14] {
+      line-width: 1;
+      line-color: @redroad;
+      line-cap: round;
+      line-join: round;
+    }
+  }
+  
+  [highway="secondary"][zoom>=15],
+    [highway="primary"][zoom>=9],
+    [highway="trunk_link"][zoom>=9],
+    [highway="motorway_link"][zoom>=9],
+    [highway="primary_link"][zoom>=10]{
+    ::casing {
+      line-width: 5;
+      //[zoom<9], [highway="primary"][zoom<12] { line-width: 2.5; }
+      [highway="primary_link"],
+        [highway="trunk_link"],
+      [highway="motorway_link"] {line-width: 4}
+      line-color: @gray;
+      line-cap: butt;
+      line-join: round;
+    }
+    ::inner {
+      line-width: 4;
+      [highway="primary_link"],
+        [highway="trunk_link"],
+      [highway="motorway_link"] {line-width: 3}
+
+      //[zoom<9], [highway="primary"][zoom<12] { line-width: 1.3; }
+      line-color: @yellow;
+      [highway="primary"],
+      [highway="primary_link"],
+      [highway="trunk_link"],
+      [highway="motorway_link"] {
+  	  line-color: @redroad;
+    	}  
+      line-cap: round;
+      line-join: round;
+    }
+  }
+  
+  /*
   [highway="trunk"][zoom>=12],
   [highway="motorway"][zoom>=12],
   [highway="primary"][zoom>=15] {
@@ -62,11 +144,25 @@
       line-join: round;
     }
   }
-  
-  [highway="track"][zoom>=12] {
-    line-width: 0.8;
-    line-color: @gray;
-    line-dasharray: 6,4;
+  */
+  [highway="track"] {
+ /*   [zoom>=11][zoom<12] {
+    line-width: 0.7;
+    line-color: @brown;
+    line-dasharray: 8,2;
+
+      }*/
+    [zoom>=11] {
+    line-width: 0.7;
+    line-color: @brown;
+    line-dasharray: 7,3;
+    [tracktype=~".+"]{line-color: @darkgray;}
+	[tracktype="grade1"] {line-dasharray: 14,0;}    
+    [tracktype="grade2"] {line-dasharray: 12,3;}
+    [tracktype="grade3"] {line-dasharray: 10,3;}
+    [tracktype="grade4"] {line-dasharray: 7,3;}    
+    [tracktype="grade5"] {line-dasharray: 5,4;}
+      }
   }
   
   [highway="service"][service=0][zoom>=14],

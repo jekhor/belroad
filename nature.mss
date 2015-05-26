@@ -1,5 +1,5 @@
-#forest[zoom>=11] {
-  polygon-opacity:0.1;
+#forest[zoom>=9] {
+  polygon-opacity:0.2;
   polygon-fill:@green;
 }
 

@@ -1,10 +1,15 @@
 @water: #9fd9e5;
-@green: #0f0;
+@green: #00b600;
+@darkgray: #4a4a4a;
 @gray: #909090;
 @lightgray: #e0e0e0;
+@lightlightgray: #efefef;
 @purple: #ac46ac;
 @lpurple: lighten(@purple, 40%);
 @yellow: #ffe7a8;
+@redroad: #d57c8f;
+@orange: #ffb879;
+@brown: #b89762;
 
 @sans: "PT Sans Regular", "Droid Sans Fallback Regular";
 @sans_italic: "PT Sans Italic", "Droid Sans Fallback Regular";
@@ -27,14 +32,9 @@ Map {
   }
 }
 
-#buildings[zoom>=15] {
-  polygon-fill: @gray;
-  polygon-opacity: 1;
-}
-
 #power[zoom>=13] {
   line-width: 0.5;
-  line-color: fadeout(#a51a1a, 30%);
+  line-color: fadeout(#d57c8f, 30%);
   line-dasharray: 20, 2, 2, 2;
 }
 
