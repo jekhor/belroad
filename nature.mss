@@ -39,13 +39,13 @@
 #wlabels[zoom>=6] {
   text-face-name: @sans_italic;
   text-name: [name];
-  text-size: 10;
+  text-size: 11;
   text-character-spacing: 1.1;
   text-fill: darken(@water, 40%);
   text-placement: line;
   [zoom<12] {
-    text-size: 9;
-    text-dy: 7;
+    text-size: 10;
+    text-dy: 4;
   }
   text-allow-overlap: false;
   text-min-distance: 100;
@@ -57,7 +57,7 @@
 #wolabels[zoom>=12] {
   text-face-name: @sans_italic;
   text-name: [name];
-  text-size: 9;
+  text-size: 11;
   [zoom>=12] { text-size: 11; }
   text-fill: darken(@water, 40%);
   text-placement: interior;
@@ -69,7 +69,7 @@
 #plabels[zoom>=14][way_area>1e5] {
   text-face-name: @sans_italic;
   text-name: [name];
-  text-size: 9;
+  text-size: 11;
   text-fill: darken(@green, 30%);
   text-placement: interior;
   text-allow-overlap: false;
