@@ -39,5 +39,5 @@ coordinates and two numeric properties. You can change those, so the linear scal
 
 ## Author and license
 
-The style was made by Ilya Zverev, published under WTFPL. Tiles at `tile.osmz.ru` are published under CC-BY, you need
-to add "Tiles © Ilya Zverev" to your copyright string (and for OSM, obviously).
+The style was made by Yauhen Kharuzhy, published under WTFPL. Style is based on the 'veloroad' style from Ilya Zverev
+(https://github.com/Zverik/veloroad).
