@@ -345,7 +345,7 @@
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select way, highway, tracktype, (case when living_street is not null or service is not null then 1 else 0 end) as service from planet_osm_roads where highway in ('path', 'cycleway', 'footway', 'service', 'track','pedestrian','living_street','residential', 'unclassified', 'tertiary', 'secondary', 'primary', 'trunk', 'motorway', 'tertiary_link', 'secondary_link', 'primary_link', 'trunk_link', 'motorway_link') and tunnel in ('yes', 'true', '1') order by z_order) as tunnels",
+        "table": "(select way, highway, tracktype, (case when living_street is not null or service is not null then 1 else 0 end) as service from planet_osm_line where highway in ('path', 'cycleway', 'footway', 'service', 'track','pedestrian','living_street','residential', 'unclassified', 'tertiary', 'secondary', 'primary', 'trunk', 'motorway', 'tertiary_link', 'secondary_link', 'primary_link', 'trunk_link', 'motorway_link') and tunnel in ('yes', 'true', '1') order by z_order) as tunnels",
         "key_field": "",
         "geometry_field": "way",
         "extent_cache": "auto",
@@ -369,7 +369,7 @@
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select way, highway, tracktype, (case when living_street is not null or service is not null then 1 else 0 end) as service from planet_osm_roads where highway in ('path', 'cycleway', 'footway', 'service', 'track','pedestrian','living_street','residential', 'unclassified', 'tertiary', 'secondary', 'primary', 'trunk', 'motorway', 'tertiary_link', 'secondary_link', 'primary_link', 'trunk_link', 'motorway_link') and (bridge is null or not bridge in ('yes', 'true', '1')) and (tunnel is null or not tunnel in ('yes', 'true', '1')) order by z_order) as highways",
+        "table": "(select way, highway, tracktype, (case when living_street is not null or service is not null then 1 else 0 end) as service from planet_osm_line where highway in ('path', 'cycleway', 'footway', 'service', 'track','pedestrian','living_street','residential', 'unclassified', 'tertiary', 'secondary', 'primary', 'trunk', 'motorway', 'tertiary_link', 'secondary_link', 'primary_link', 'trunk_link', 'motorway_link') and (bridge is null or not bridge in ('yes', 'true', '1')) and (tunnel is null or not tunnel in ('yes', 'true', '1')) order by z_order) as highways",
         "key_field": "",
         "geometry_field": "way",
         "extent_cache": "auto",
@@ -396,7 +396,7 @@
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select way, highway, tracktype, (case when living_street is not null or service is not null then 1 else 0 end) as service from planet_osm_roads where highway in ('path', 'cycleway', 'footway', 'service', 'track','pedestrian','living_street','residential', 'unclassified', 'tertiary', 'secondary', 'primary', 'trunk', 'motorway', 'tertiary_link', 'secondary_link', 'primary_link', 'trunk_link', 'motorway_link') and bridge in ('yes', 'true', '1') order by z_order) as bridges",
+        "table": "(select way, highway, tracktype, (case when living_street is not null or service is not null then 1 else 0 end) as service from planet_osm_line where highway in ('path', 'cycleway', 'footway', 'service', 'track','pedestrian','living_street','residential', 'unclassified', 'tertiary', 'secondary', 'primary', 'trunk', 'motorway', 'tertiary_link', 'secondary_link', 'primary_link', 'trunk_link', 'motorway_link') and bridge in ('yes', 'true', '1') order by z_order) as bridges",
         "key_field": "",
         "geometry_field": "way",
         "extent_cache": "auto",
