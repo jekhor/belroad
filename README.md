@@ -1,21 +1,20 @@
-# Veloroad Style
+# belroad Style
 
-This style is specifically made for printing in black and white at at least 150 dpi with a route overlayed.
-Contrast is high, labels are small and aplenty. You can see a demo at [osmz.ru/veloroad.html](http://osmz.ru/veloroad.html),
-where you can compare the layer to other maps, and you can use the layer at [openstreetmap.ru](http://openstreetmap.ru).
+This style is focused on the roads and made suitable for cycling route planning in Belarus. Any propositions
+of improvements are welcome.
 
 ## Installation
 
     npm install -g carto
-    git clone https://github.com/Zverik/veloroad.git veloroad
-    cd veloroad
+    git clone https://github.com/jekhor/belroad.git belroad
+    cd belroad
     ./get-shapefiles.sh
-    carto -l project.mml > veloroad.xml
+    carto -l project.mml > belroad.xml
 
 ## Preparing contours
 
 I use smoothed [GMTED2010](http://topotools.cr.usgs.gov/gmted_viewer/) relief maps for generating contours,
-because that way you don't get many anrtifacts (unlike SRTM). And it covers most of the planet, also unlike SRTM.
+because that way you don't get many artifacts (unlike SRTM). And it covers most of the planet, also unlike SRTM.
 Download Median/15 squares merge them, apply gaussian filter in SAGA and generate contours with GDAL:
 
 	gdal_merge 30N000E_20101117_gmted_med150.tif dem2.tif ... -o gmted_dem.tif
