@@ -43,7 +43,6 @@
   text-character-spacing: 1.1;
   text-fill: darken(@water, 40%);
   text-placement: line;
-  text-vertical-alignment: top;
   [zoom<12] {
     text-size: 10;
     text-dy: -2;
