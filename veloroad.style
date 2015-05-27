@@ -70,6 +70,7 @@ node,way   military     text         polygon
 node,way   motorcar     text         linear
 node,way   name         text         linear
 node,way   name:ru      text         linear
+node,way   name:be      text         linear
 node,way   name:en      text         linear
 node,way   natural      text         polygon  # natural=coastline tags are discarded by a hard coded rule in osm2pgsql
 node,way   office       text         polygon

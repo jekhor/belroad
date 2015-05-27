@@ -27,18 +27,18 @@
   "Layer": [
     {
       "extent": [
-        -179.9999999749438,
-        -85.051,
-        179.9999999749438,
-        85.051
+        22.71561208176848,
+        51.024301313540015,
+        32.79624694636674,
+        56.36838768819846
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select way,place,name from planet_osm_polygon where place in ('village', 'town', 'city', 'hamlet', 'isolated_dwelling')) as placep",
+        "table": "(select way,place,coalesce(\"name:be\", name) AS name from planet_osm_polygon where place in ('village', 'town', 'city', 'hamlet', 'isolated_dwelling')) as placep",
         "key_field": "",
         "geometry_field": "way",
         "extent_cache": "auto",
-        "extent": "-20037508.34,-20037508.34,20037508.34,20037508.34",
+        "extent": "2528690.37,6625593.47,3650861.51,7632103.5",
         "dbname": "gis"
       },
       "id": "placep",
@@ -98,18 +98,18 @@
     {
       "geometry": "linestring",
       "extent": [
-        -179.9999999749438,
-        -85.051,
-        179.9999999749438,
-        85.051
+        22.467556599271887,
+        49.10078991480273,
+        33.24694070756235,
+        56.36710850981006
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select way,waterway,name,ST_Length(way) as length from planet_osm_line where waterway in ('stream', 'river','drain','ditch','canal') and tunnel is null) as rivers",
+        "table": "(select way,waterway,coalesce(\"name:be\", name) AS name,ST_Length(way) as length from planet_osm_line where waterway in ('stream', 'river','drain','ditch','canal') and tunnel is null) as rivers",
         "key_field": "",
         "geometry_field": "way",
         "extent_cache": "auto",
-        "extent": "-20037508.34,-20037508.34,20037508.34,20037508.34",
+        "extent": "2501076.96,6291980.67,3701032.51,7631846.4",
         "dbname": "gis"
       },
       "id": "rivers",
@@ -141,18 +141,18 @@
     },
     {
       "extent": [
-        20.67154065835024,
-        53.83894644201676,
-        41.64409284452203,
-        63.124710468885965
+        22.71561208176848,
+        51.024301313540015,
+        32.79624694636674,
+        56.36838768819846
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select way,name,way_area from planet_osm_polygon where \"natural\"='water' or waterway='riverbank') as lakes",
+        "table": "(select way,coalesce(\"name:be\", name) AS name,way_area from planet_osm_polygon where \"natural\"='water' or waterway='riverbank') as lakes",
         "key_field": "",
         "geometry_field": "way",
         "extent_cache": "auto",
-        "extent": "-20037508.34,-20037508.34,20037508.34,20037508.34",
+        "extent": "2528690.37,6625593.47,3650861.51,7632103.5",
         "dbname": "gis",
         "id": "lakes",
         "project": "lineart",
@@ -163,7 +163,8 @@
       "srs-name": "900913",
       "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
       "advanced": {},
-      "name": "lakes"
+      "name": "lakes",
+      "geometry": "polygon"
     },
     {
       "geometry": "linestring",
@@ -362,10 +363,10 @@
     {
       "geometry": "linestring",
       "extent": [
-        -179.9999999749438,
-        -85.051,
-        179.9999999749438,
-        85.051
+        22.467556599271887,
+        49.10078991480273,
+        33.24694070756235,
+        56.36710850981006
       ],
       "Datasource": {
         "type": "postgis",
@@ -373,7 +374,7 @@
         "key_field": "",
         "geometry_field": "way",
         "extent_cache": "auto",
-        "extent": "-20037508.34,-20037508.34,20037508.34,20037508.34",
+        "extent": "2501076.96,6291980.67,3701032.51,7631846.4",
         "dbname": "gis",
         "id": "highways",
         "project": "veloroad",
@@ -413,18 +414,18 @@
     {
       "geometry": "point",
       "extent": [
-        20.975879545984167,
-        53.84680894368537,
-        41.61137036282504,
-        63.12389317378751
+        23.048804047844566,
+        51.26288996353496,
+        33.24694070756235,
+        56.173291296246354
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select way,name from planet_osm_point where railway='subway_entrance') as subway",
+        "table": "(select way,coalesce(\"name:be\", name) as name from planet_osm_point where railway='subway_entrance') as subway",
         "key_field": "",
         "geometry_field": "way",
         "extent_cache": "auto",
-        "extent": "-20037508.34,-20037508.34,20037508.34,20037508.34",
+        "extent": "2565781.13,6667928.32,3701032.51,7592990.68",
         "dbname": "gis"
       },
       "id": "subway",
@@ -465,18 +466,18 @@
     {
       "geometry": "point",
       "extent": [
-        -179.9999999749438,
-        -85.051,
-        179.9999999749438,
-        85.051
+        23.048804047844566,
+        51.26288996353496,
+        33.24694070756235,
+        56.173291296246354
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select way,place,coalesce(\"name:ru\", name) as name,(case when place='city' then 9 when place='town' then 8 when place='village' then 7 when place='hamlet' then 6 when place='suburb' then 5 when place='locality' then 4 when place in ('isolated_dwelling', 'allotments') then 3 else 0 end) as p_order, (case when coalesce(population, '')~E'^\\\\d+$' then population::int else 0 end) as pop from planet_osm_point where place in ('village', 'town', 'city', 'hamlet', 'suburb', 'locality', 'isolated_dwelling', 'island', 'allotments') order by p_order desc, pop desc) as places",
+        "table": "(select way,place,coalesce(\"name:be\", \"name:ru\", name) as name,(case when place='city' then 9 when place='town' then 8 when place='village' then 7 when place='hamlet' then 6 when place='suburb' then 5 when place='locality' then 4 when place in ('isolated_dwelling', 'allotments') then 3 else 0 end) as p_order, (case when coalesce(population, '')~E'^\\\\d+$' then population::int else 0 end) as pop from planet_osm_point where place in ('village', 'town', 'city', 'hamlet', 'suburb', 'locality', 'isolated_dwelling', 'island', 'allotments') order by p_order desc, pop desc) as places",
         "key_field": "",
         "geometry_field": "way",
         "extent_cache": "auto",
-        "extent": "-20037508.34,-20037508.34,20037508.34,20037508.34",
+        "extent": "2565781.13,6667928.32,3701032.51,7592990.68",
         "dbname": "gis",
         "id": "places",
         "project": "lineart",
@@ -492,18 +493,18 @@
     {
       "geometry": "point",
       "extent": [
-        -179.9999999749438,
-        -85.051,
-        179.9999999749438,
-        85.051
+        23.048804047844566,
+        51.26288996353496,
+        33.24694070756235,
+        56.173291296246354
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select way,railway,station,coalesce(\"name:ru\", name) as name,length(coalesce(\"name:ru\", name)) as len,(select 90+degrees(ST_Azimuth(ST_StartPoint(inter), ST_EndPoint(inter))) from (select ST_Intersection(r.way, ST_Buffer(p.way, 100)) as inter from planet_osm_line r where r.railway in ('rail', 'narrow_gauge') and r.way && ST_Buffer(p.way, 100) order by ST_Distance(r.way, p.way) limit 1) rr) as angle from planet_osm_point p where railway in ('station', 'halt') and (station is null or (station != 'subway' and station != 'disused'))) as stations",
+        "table": "(select way,railway,station,coalesce(\"name:be\", name) as name,length(coalesce(\"name:be\", name)) as len,(select 90+degrees(ST_Azimuth(ST_StartPoint(inter), ST_EndPoint(inter))) from (select ST_Intersection(r.way, ST_Buffer(p.way, 100)) as inter from planet_osm_line r where r.railway in ('rail', 'narrow_gauge') and r.way && ST_Buffer(p.way, 100) order by ST_Distance(r.way, p.way) limit 1) rr) as angle from planet_osm_point p where railway in ('station', 'halt') and (station is null or (station != 'subway' and station != 'disused'))) as stations",
         "key_field": "",
         "geometry_field": "way",
         "extent_cache": "auto",
-        "extent": "-20037508.34,-20037508.34,20037508.34,20037508.34",
+        "extent": "2565781.13,6667928.32,3701032.51,7592990.68",
         "dbname": "gis",
         "id": "stations",
         "project": "lineart",
@@ -519,18 +520,18 @@
     {
       "geometry": "linestring",
       "extent": [
-        20.67154065835024,
-        53.8391333927831,
-        41.679925742890276,
-        63.124710468885965
+        22.467556599271887,
+        49.10078991480273,
+        33.24694070756235,
+        56.36710850981006
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select way, highway,(case when ref = 'А-118' then 'КАД' when length(ref) <= 5 then ref else null end) as ref,name from planet_osm_line where highway in ('tertiary', 'secondary', 'primary', 'trunk', 'motorway')) as highwaysh",
+        "table": "(select way, highway,(case when ref = 'А-118' then 'КАД' when length(ref) <= 5 then ref else null end) as ref,coalesce(\"name:be\", name) AS name from planet_osm_line where highway in ('tertiary', 'secondary', 'primary', 'trunk', 'motorway')) as highwaysh",
         "key_field": "",
         "geometry_field": "way",
         "extent_cache": "auto",
-        "extent": "-20037508.34,-20037508.34,20037508.34,20037508.34",
+        "extent": "2501076.96,6291980.67,3701032.51,7631846.4",
         "dbname": "gis"
       },
       "id": "hlabels",
@@ -543,18 +544,18 @@
     {
       "geometry": "linestring",
       "extent": [
-        20.67154065835024,
-        53.8391333927831,
-        41.679925742890276,
-        63.124710468885965
+        22.467556599271887,
+        49.10078991480273,
+        33.24694070756235,
+        56.36710850981006
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select way,waterway,name from planet_osm_line where waterway in ('river', 'canal') and tunnel is null) as rivers",
+        "table": "(select way,waterway,coalesce(\"name:be\", name) AS name from planet_osm_line where waterway in ('river', 'canal') and tunnel is null) as rivers",
         "key_field": "",
         "geometry_field": "way",
         "extent_cache": "auto",
-        "extent": "-20037508.34,-20037508.34,20037508.34,20037508.34",
+        "extent": "2501076.96,6291980.67,3701032.51,7631846.4",
         "dbname": "gis"
       },
       "id": "wlabels",
@@ -567,18 +568,18 @@
     {
       "geometry": "linestring",
       "extent": [
-        20.67154065835024,
-        53.8391333927831,
-        41.679925742890276,
-        63.124710468885965
+        22.467556599271887,
+        49.10078991480273,
+        33.24694070756235,
+        56.36710850981006
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select * from (select ST_LineMerge(ST_Union(way)) as way, replace(replace(replace(replace(name, 'набережная', 'наб.'), 'улица', 'ул.'), 'проспект', 'пр.'), 'переулок', 'пер.') as name from (select way,name from planet_osm_line where highway in ('tertiary', 'secondary', 'primary') and way && ST_Expand(!bbox!, 0.1)) p group by name) pp order by ST_Length(way) desc) as highwaysl",
+        "table": "(select * from (select ST_LineMerge(ST_Union(way)) as way, replace(replace(replace(replace(name, 'набережная', 'наб.'), 'улица', 'ул.'), 'проспект', 'пр.'), 'переулок', 'пер.') as name from (select way, coalesce(\"name:be\", name) AS name from planet_osm_line where highway in ('tertiary', 'secondary', 'primary') and way && ST_Expand(!bbox!, 0.1)) p group by name) pp order by ST_Length(way) desc) as highwaysl",
         "key_field": "",
         "geometry_field": "",
         "extent_cache": "auto",
-        "extent": "-20037508.34,-20037508.34,20037508.34,20037508.34",
+        "extent": "2501076.96,6291980.67,3701032.51,7631846.4",
         "dbname": "gis"
       },
       "id": "hslabels",
@@ -590,18 +591,18 @@
     },
     {
       "extent": [
-        20.67154065835024,
-        53.83894644201676,
-        41.64409284452203,
-        63.124710468885965
+        22.71561208176848,
+        51.024301313540015,
+        32.79624694636674,
+        56.36838768819846
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select way,way_area, name from planet_osm_polygon where leisure = 'park') as wol",
+        "table": "(select way,way_area, coalesce(\"name:be\", name) AS name from planet_osm_polygon where leisure = 'park') as wol",
         "key_field": "",
         "geometry_field": "way",
         "extent_cache": "auto",
-        "extent": "-20037508.34,-20037508.34,20037508.34,20037508.34",
+        "extent": "2528690.37,6625593.47,3650861.51,7632103.5",
         "dbname": "gis"
       },
       "id": "plabels",
@@ -609,22 +610,23 @@
       "srs-name": "900913",
       "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
       "advanced": {},
-      "name": "plabels"
+      "name": "plabels",
+      "geometry": "polygon"
     },
     {
       "extent": [
-        19.3038209633083,
-        41.74999993524841,
-        179.94826375194316,
-        76.98633298581831
+        22.71561208176848,
+        51.024301313540015,
+        32.79624694636674,
+        56.36838768819846
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select place, name, ST_PointOnSurface(way) as way, way_area from planet_osm_polygon where place='island' order by way_area desc) as islands",
+        "table": "(select place, coalesce(\"name:be\", name) as name, ST_PointOnSurface(way) as way, way_area from planet_osm_polygon where place='island' order by way_area desc) as islands",
         "key_field": "",
         "geometry_field": "way",
         "extent_cache": "auto",
-        "extent": "-20037508.34,-20037508.34,20037508.34,20037508.34",
+        "extent": "2528690.37,6625593.47,3650861.51,7632103.5",
         "dbname": "gis"
       },
       "id": "islands",
@@ -632,23 +634,24 @@
       "srs-name": "900913",
       "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
       "advanced": {},
-      "name": "islands"
+      "name": "islands",
+      "geometry": "point"
     },
     {
-      "geometry": "linestring",
+      "geometry": "polygon",
       "extent": [
-        20.67154065835024,
-        53.83894644201676,
-        41.64409284452203,
-        63.124710468885965
+        22.71561208176848,
+        51.024301313540015,
+        32.79624694636674,
+        56.36838768819846
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select way,way_area,replace(name,'озеро', 'оз.') as name from planet_osm_polygon where \"natural\" = 'water' and (water is null or water != 'river')) as wol",
+        "table": "(select way,way_area, coalesce(\"name:be\", name) AS name from planet_osm_polygon where \"natural\" = 'water' and (water is null or water != 'river')) as wol",
         "key_field": "",
         "geometry_field": "way",
         "extent_cache": "auto",
-        "extent": "-20037508.34,-20037508.34,20037508.34,20037508.34",
+        "extent": "2528690.37,6625593.47,3650861.51,7632103.5",
         "dbname": "gis"
       },
       "id": "wolabels",
