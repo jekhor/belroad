@@ -6,11 +6,11 @@
   [place="hamlet"][zoom>=13] {
     text-face-name: @sans_italic;
     text-name: [name];
-    text-halo-radius: 2;
+    text-halo-radius: 1;
     text-halo-fill: fadeout(white, 10%);
     text-placement-type: simple;
     text-placements: "X,N,S,NE,SE,NW,SW";
-    text-min-distance: 20;
+    text-min-distance: 10;
     text-allow-overlap: false;
     /*text-character-spacing: 1.00;*/
     
@@ -76,7 +76,8 @@
     [place="village"] {
       [zoom>=10][zoom<12] { shield-size: 12; }
     }
-    [place="hamlet"] { shield-min-distance: 30; }
+    [place="hamlet"][zoom<12] { shield-min-distance: 20; }
+    [place="hamlet"][zoom>=12] { shield-min-distance: 1; }
   }
 }
 
