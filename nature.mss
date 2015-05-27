@@ -25,13 +25,13 @@
 #rivers[waterway="river"][zoom>=8],
 #rivers[waterway="canal"][zoom>=8] {
   line-color: @water;
-  [zoom>=8][zoom<14] { line-width:1; }
-  [zoom>=14] { line-width:2; }
+  line-width:2;
+  [zoom<11] {line-width: 1;}
 }
 
-#rivers[waterway="drain"][zoom>=14],
-#rivers[waterway="ditch"][zoom>=14],
-#rivers[waterway="stream"][zoom>=14] {
+#rivers[waterway="drain"][zoom>=11],
+#rivers[waterway="ditch"][zoom>=11],
+#rivers[waterway="stream"][zoom>=11] {
   line-color: @water;
   line-width:1;
 }
