@@ -7,7 +7,7 @@
     text-face-name: @sans_italic;
     text-name: [name];
     text-halo-radius: 1;
-    text-halo-fill: fadeout(white, 10%);
+    text-halo-fill: fadeout(white, 50%);
     text-placement-type: simple;
     text-placements: "X,N,S,NE,SE,NW,SW";
     text-min-distance: 10;
@@ -54,7 +54,7 @@
     shield-face-name: @sans_italic;
     shield-name: [name];
     shield-halo-radius: 1;
-    shield-halo-fill: fadeout(white, 10%);
+    shield-halo-fill: fadeout(white, 50%);
     shield-placement-type: simple;
     shield-placements: "NE,NW,SW,SE,E,N,W,S";
     shield-text-dx: 4;
@@ -89,7 +89,7 @@
     text-name: [name];
     text-fill: black;
     text-halo-radius: 1;
-    text-halo-fill: fadeout(white, 30%);
+    text-halo-fill: fadeout(white, 50%);
     text-min-distance: 30;
     text-allow-overlap: false;
     text-placement-type: simple;

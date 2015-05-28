@@ -15,7 +15,7 @@
   shield-placements: "E,W,N,S,NE,NW,SW,SE";
   shield-allow-overlap: false;
   shield-halo-radius: 1.5;
-  shield-halo-fill: fadeout(white, 30%);
+  shield-halo-fill: fadeout(white, 50%);
   shield-unlock-image: true;
 }
 
@@ -46,7 +46,7 @@
     }
     text-allow-overlap: false;
     text-halo-radius: 1.5;
-    text-halo-fill: fadeout(white, 30%);
+    text-halo-fill: fadeout(white, 50%);
     }
   }
 }
