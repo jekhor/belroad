@@ -19,7 +19,7 @@
   shield-unlock-image: true;
 }
 
-#stations[zoom>=12] {
+#stations[zoom>=11] {
   [railway="station"][zoom>=11] {
     marker-file: url(icons/station.svg);
     marker-transform: rotate([angle], 0, 0);
@@ -30,13 +30,13 @@
     marker-transform: rotate([angle], 0, 0);
     marker-ignore-placement: true;
   }
-  [railway="station"][zoom>=13],
-  [railway="halt"][zoom>=13] {
+  [railway="station"][zoom>=11],
+  [railway="halt"][zoom>=12] {
     [len<=12], [zoom>=14] {
     text-name: [name];
     text-face-name: @sans;
     text-fill: @gray;
-    text-size: 10;
+    text-size: 11;
     text-dx: 7;
     text-dy: 7;
     text-placement-type: simple;
