@@ -43,10 +43,10 @@
   text-character-spacing: 1.1;
   text-fill: darken(@water, 40%);
   text-placement: line;
+  /* labels are placed more closely at the latlon server than in Tilemill */
+  text-dy: -6;
   [zoom<12] {
-    text-size: 10;
-    /* labels are placed more closely at the latlon server than in Tilemill */
-    text-dy: -6;
+    text-size: 	10;
   }
   text-allow-overlap: false;
   text-min-distance: 100;
