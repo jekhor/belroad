@@ -36,6 +36,13 @@
   line-width:1;
 }
 
+#water-areas-overlay {
+  [zoom >= 10] {
+    polygon-pattern-file: url('icons/wetland.svg');
+    polygon-pattern-alignment: global;
+  }
+}
+
 #wlabels[zoom>=6] {
   text-face-name: @sans_italic;
   text-name: [name];
