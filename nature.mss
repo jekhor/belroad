@@ -1,4 +1,4 @@
-#forest[zoom>=9] {
+#forest[zoom>=7] {
   polygon-opacity:0.2;
   polygon-fill:@green;
 }
