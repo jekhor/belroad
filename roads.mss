@@ -13,8 +13,7 @@
   
  
   [highway="secondary"][zoom<15][zoom>=9],
-  [highway="primary"][zoom>=7][zoom<9],
-  [highway="trunk"][zoom<7],
+    [highway="trunk"][zoom<7],
   [highway="motorway"][zoom<7],
   [highway="secondary_link"][zoom>=12],
   [highway="tertiary_link"][zoom>=12],
@@ -22,6 +21,11 @@
     line-width:1.5;
     [zoom<10] { line-width: 1.1; }
     line-color:@gray;
+  }
+  
+  [highway="primary"][zoom>=7][zoom<9] {
+    line-color: @redroad;
+    line-width: 1.5;
   }
   
   [highway="secondary"][zoom>=10] {
@@ -73,7 +77,9 @@
   [highway="trunk"][zoom>=7],
   [highway="motorway"][zoom>=7] {
     ::inner0 {
-      line-width: 7;
+      line-width: 6;
+      [zoom<=8] {line-width: 5;}
+      [zoom<=7] {line-width: 3;}
       line-color: @redroad;
       line-cap: butt;
       line-join: round;
@@ -81,11 +87,13 @@
     ::inner1 {
       line-width: 1.5;
       [zoom<14] {line-width: 3}
+      [zoom<=8] {line-width: 2.5;}
+      [zoom<=7] {line-width: 0.5;}
       line-color: @yellow;
       line-cap: butt;
       line-join: round;
     }
-    ::inner2[zoom<14] {
+    ::inner2[zoom>=8][zoom<14] {
       line-width: 1;
       line-color: @redroad;
       line-cap: round;
