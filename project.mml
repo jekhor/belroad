@@ -96,6 +96,30 @@
       "name": "residential"
     },
     {
+      "geometry": "polygon",
+      "extent": [
+        7.292175469141206,
+        46.769969165920045,
+        32.79624694636674,
+        56.36838768819846
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(SELECT\n way,\nCASE WHEN \"natural\" IN ('marsh', 'mud') THEN \"natural\" ELSE wetland END AS int_wetland\nFROM planet_osm_polygon\n WHERE \"natural\" IN ('marsh', 'mud', 'wetland')\nAND building IS NULL\nAND way_area > 0.01*!pixel_width!::real*!pixel_height!::real\nORDER BY z_order, way_area DESC\n) AS water_areas_overlay",
+        "key_field": "",
+        "geometry_field": "way",
+        "extent_cache": "auto",
+        "extent": "811761.26,5904607.68,3650861.51,7632103.5",
+        "dbname": "gis"
+      },
+      "id": "water-areas-overlay",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "water-areas-overlay"
+    },
+    {
       "geometry": "linestring",
       "extent": [
         22.467556599271887,
