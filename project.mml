@@ -712,11 +712,38 @@
       "advanced": {},
       "name": "scale",
       "status": "off"
+    },
+    {
+      "geometry": "linestring",
+      "extent": [
+        -180,
+        -85.051,
+        180,
+        85.051
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(\nwith \nhousenumbers as (\n    select \n        \"addr:housenumber\",\n        \"addr:street\", \n        way,\n        way as point \n    from planet_osm_point \n    where (\"addr:housenumber\" is not null and way && !bbox!) \n\n    union all\n\n    select \n        \"addr:housenumber\", \n        \"addr:street\", \n        way,\n        ST_PointOnSurface(way) as point \n    from planet_osm_polygon \n    where (\"addr:housenumber\" is not null and way && !bbox!)\n),\nhouse_extent as (select ST_Expand(ST_Extent(way), 600) extent from housenumbers),\nstreets as (\n    select way, name from planet_osm_line l, house_extent where l.name is not null and l.highway is not null and l.way && extent\n    union all\n    select ST_Centroid(way), name from planet_osm_polygon l, house_extent where l.name is not null and l.highway is not null and l.way && extent\n),\nstreet_length as (\n    select sum(ST_Length(way)) as len, name from streets where name in (select \"addr:street\" from housenumbers) group by name\n)\n    -- stupid mapnik asks 5 first buildings in the world to get geometry type.\n    -- that fucks everything up because of ordering by distance to street.\n    -- let's feed it with something while waiting for something better\n    select 0 as angle, ''::text as hno, ST_GeomFromEWKT('SRID=900913;LINESTRING(-200 0, 200 0)') as way\n        union all\n    select 0 as angle, ''::text as hno, ST_GeomFromEWKT('SRID=900913;LINESTRING(-200 0, 200 0)') as way\n        union all\n    select 0 as angle, ''::text as hno, ST_GeomFromEWKT('SRID=900913;LINESTRING(-200 0, 200 0)') as way\n        union all\n    select 0 as angle, ''::text as hno, ST_GeomFromEWKT('SRID=900913;LINESTRING(-200 0, 200 0)') as way\n        union all\n    select 0 as angle, ''::text as hno, ST_GeomFromEWKT('SRID=900913;LINESTRING(-200 0, 200 0)') as way\n        union all\n    select \n        angle,\n        hno || case when angle > 75 and angle < 275 then '.' else '' end, \n        way from (\n        select\n            (select len from street_length l where l.name = h.\"addr:street\") len,\n            (select ST_Distance(h.way, l.way) from streets l where l.name != h.\"addr:street\" order by 1 asc limit 1) dist,\n            \n            \"addr:housenumber\" as hno,\n            (\n                select \n                    mod(case when angle > 90 and angle < 270 then 180+angle\n                    else angle end::integer, 360)\n                from (\n                select\n                    360 - degrees(ST_Azimuth(\n                        ST_StartPoint(ST_ShortestLine(h.point, l.way)),\n                        ST_EndPoint(ST_ShortestLine(h.point, l.way))\n                    )) angle\n                from streets l\n                where l.\"name\" = h.\"addr:street\"            \n                order by ST_Distance(h.point, l.way) asc\n                limit 1) p\n            ) as angle,\n            point as way\n        from housenumbers h\n        order by \n            1 desc, 2\n    ) p\n) p\n",
+        "key_field": "",
+        "geometry_field": "way",
+        "extent_cache": "custom",
+        "extent": "-20037508.34,-20037508.34,20037508.34,20037508.34",
+        "dbname": "gis",
+        "srid": "900913"
+      },
+      "id": "hnolabels",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {
+        "srid": "900913"
+      },
+      "name": "hnolabels"
     }
   ],
   "scale": 1,
   "metatile": 3,
-  "name": "Veloroad",
+  "name": "Belroad",
   "description": "",
   "attribution": ""
 }

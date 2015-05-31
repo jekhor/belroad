@@ -1,5 +1,5 @@
 #highways, #bridges, #tunnels {
-  [highway="primary"][zoom<7],
+  [highway="primary"][zoom<7][zoom>=6],
   [highway="secondary"][zoom<9][zoom>=7],
   [highway="tertiary"][zoom>=9][zoom<12],
   [highway="unclassified"][zoom>=11],
