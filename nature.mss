@@ -38,7 +38,7 @@
 
 #water-areas-overlay {
   [zoom >= 10] {
-    polygon-pattern-file: url('icons/wetland.svg');
+    polygon-pattern-file: url('icons/wetland.png');
     polygon-pattern-alignment: global;
   }
 }
