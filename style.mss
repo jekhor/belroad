@@ -11,6 +11,7 @@
 @orange: #ffb879;
 @brown: #b89762;
 
+
 @sans: "PT Sans Regular", "Droid Sans Fallback Regular";
 @sans_italic: "PT Sans Italic", "Droid Sans Fallback Regular";
 @sans_bold: "PT Sans Bold", "Droid Sans Fallback Regular";
@@ -18,7 +19,7 @@
 
 Map {
   background-color: white;
-  buffer-size: 128;
+  buffer-size: 256;
   font-directory: url(data/ptsans);
 }
 
@@ -82,7 +83,7 @@ Map {
 #scale[label=''] {
   ::casing {
     line-width: 5;
-    line-color: black;
+    line-color: black; 
   }
   ::fill[id2=1] {
     line-width: 3;
@@ -105,12 +106,26 @@ Map {
 
 #hnolabels[zoom>=14] {
   text-name: [hno];
-  text-face-name: @sans_bold;
-  text-size: 9;
+  text-face-name: @sans;
+  text-size: 8;
   text-spacing: 0;
   text-clip: false;
-  text-min-distance: 16;
+  text-min-distance: 13;
   text-orientation: [angle];
-  text-halo-radius: 1;
-  text-halo-fill: @lightgray;
+  text-halo-radius: 1.5;
+  text-halo-fill: mix(@gray, @lightgray, 25%);
+  /*
+  colored halos need more thinking.
+  [highway='primary']{text-halo-fill: mix(@redroad, @lightgray, 25%);}
+  [highway='secondary']{text-halo-fill: mix(@orange, @lightgray, 25%);}
+  [highway='tertiary']{text-halo-fill: mix(@yellow, @lightgray, 25%);}
+  */
+  [zoom>=15] {text-size: 9; }
+  [zoom>=16] {text-size: 10; text-min-distance: 9;}
+  [zoom>=17] {text-min-distance: 10;}  
+}
+
+#barriers[zoom>=16] {
+  line-width:.5;
+  line-color:#000;
 }

@@ -51,7 +51,7 @@
   }
 }
 
-.railway[railway="rail"] {
+.railway[railway="rail"][zoom>=6] {
   casing/line-width: 2.5;
   casing/line-color: @gray;
   
