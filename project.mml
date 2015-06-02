@@ -13,7 +13,7 @@
   "format": "png8",
   "interactivity": false,
   "minzoom": 6,
-  "maxzoom": 15,
+  "maxzoom": 22,
   "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
   "Stylesheet": [
     "style.mss",
@@ -263,14 +263,14 @@
     },
     {
       "extent": [
-        20.67154065835024,
-        53.83894644201676,
-        41.64409284452203,
-        63.124710468885965
+        -179.9999999749438,
+        -85.051,
+        179.9999999749438,
+        85.051
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select way from planet_osm_polygon where building is not null) as buildings",
+        "table": "(select way, left(md5(\"addr:street\"), 1) as streethash,left(md5(\"addr:postcode\"), 1) as posthash, case when way_area > 5*5*!pixel_height!*!pixel_width! then 'yes' else 'almost' end as visible from planet_osm_polygon where building is not null and way_area > 3*3*!pixel_height!*!pixel_width!) as buildings",
         "key_field": "",
         "geometry_field": "way",
         "extent_cache": "auto",
@@ -282,7 +282,8 @@
       "srs-name": "900913",
       "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
       "advanced": {},
-      "name": "buildings"
+      "name": "buildings",
+      "geometry": "polygon"
     },
     {
       "geometry": "linestring",
@@ -307,34 +308,6 @@
       "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
       "advanced": {},
       "name": "power"
-    },
-    {
-      "geometry": "linestring",
-      "extent": [
-        24.9482981,
-        56.2049279,
-        41.1063007,
-        63.4120211
-      ],
-      "id": "railway-json",
-      "class": "railway",
-      "Datasource": {
-        "type": "ogr",
-        "file": "data/railways-nw.gpx",
-        "layer": "tracks",
-        "all_layers": [
-          "route_points",
-          "routes",
-          "track_points",
-          "waypoints"
-        ]
-      },
-      "layer": "tracks",
-      "srs-name": "autodetect",
-      "srs": "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs",
-      "advanced": {},
-      "name": "railway-json",
-      "status": "off"
     },
     {
       "geometry": "linestring",
@@ -414,6 +387,30 @@
     {
       "geometry": "linestring",
       "extent": [
+        23.179674121864707,
+        51.27266501642914,
+        32.750452180655266,
+        56.16550391115494
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(\nselect way from planet_osm_line where barrier is not null\nunion all \nselect way from planet_osm_polygon where barrier is not null\n) p",
+        "key_field": "",
+        "geometry_field": "",
+        "extent_cache": "custom",
+        "extent": "",
+        "dbname": "gis"
+      },
+      "id": "barriers",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "barriers"
+    },
+    {
+      "geometry": "linestring",
+      "extent": [
         -179.9999999749438,
         -85.051,
         179.9999999749438,
@@ -458,34 +455,6 @@
       "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
       "advanced": {},
       "name": "subway"
-    },
-    {
-      "geometry": "linestring",
-      "extent": [
-        29.54747,
-        60.06791,
-        30.32233,
-        60.57137
-      ],
-      "id": "route",
-      "class": "route",
-      "Datasource": {
-        "type": "ogr",
-        "file": "data/route.gpx",
-        "layer": "tracks",
-        "all_layers": [
-          "route_points",
-          "routes",
-          "track_points",
-          "waypoints"
-        ]
-      },
-      "layer": "tracks",
-      "srs-name": "WGS84",
-      "srs": "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs",
-      "advanced": {},
-      "name": "route",
-      "status": "off"
     },
     {
       "geometry": "point",
@@ -599,7 +568,7 @@
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select * from (select ST_LineMerge(ST_Union(way)) as way, replace(replace(replace(replace(name, 'набережная', 'наб.'), 'улица', 'ул.'), 'проспект', 'пр.'), 'переулок', 'пер.') as name from (select way, coalesce(\"name:be\", name) AS name from planet_osm_line where highway in ('tertiary', 'secondary', 'primary') and way && ST_Expand(!bbox!, 0.1)) p group by name) pp order by ST_Length(way) desc) as highwaysl",
+        "table": "(\nselect \n    streethash,\n    case when ST_X(ST_LineInterpolatePoint(way, 0.5)) > ST_X(ST_StartPoint(way)) then way else ST_Reverse(way) end\n    as way,\n    name\nfrom (\n    select \n        left(md5(street), 1) as streethash, \n        (ST_Dump(ST_Simplify(ST_LineMerge(ST_Union(ST_SnapToGrid(way, 2*!pixel_height!))), 4*!pixel_height!))).geom as way, \n        replace(replace(replace(replace(replace(replace(name, 'завулак', 'зав.'), 'вуліца', 'вул.'), 'набережная', 'наб.'), 'улица', 'ул.'), 'проспект', 'пр.'), 'переулок', 'пер.') as name \n    from (\n        select \n            name as street,\n            way, \n            coalesce(\"name:be\", name) AS name \n        from planet_osm_line \n        where \n            highway is not null and \n            name is not null and \n            way && !bbox!) p \n        group by \n            name, \n            streethash\n    ) pp \n    order by ST_Length(way) desc\n) as highwaysl",
         "key_field": "",
         "geometry_field": "",
         "extent_cache": "auto",
@@ -716,14 +685,14 @@
     {
       "geometry": "linestring",
       "extent": [
-        -180,
+        -179.9999999749438,
         -85.051,
-        180,
+        179.9999999749438,
         85.051
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(\nwith \nhousenumbers as (\n    select \n        \"addr:housenumber\",\n        \"addr:street\", \n        way,\n        way as point \n    from planet_osm_point \n    where (\"addr:housenumber\" is not null and way && !bbox!) \n\n    union all\n\n    select \n        \"addr:housenumber\", \n        \"addr:street\", \n        way,\n        ST_PointOnSurface(way) as point \n    from planet_osm_polygon \n    where (\"addr:housenumber\" is not null and way && !bbox!)\n),\nhouse_extent as (select ST_Expand(ST_Extent(way), 600) extent from housenumbers),\nstreets as (\n    select way, name from planet_osm_line l, house_extent where l.name is not null and l.highway is not null and l.way && extent\n    union all\n    select ST_Centroid(way), name from planet_osm_polygon l, house_extent where l.name is not null and l.highway is not null and l.way && extent\n),\nstreet_length as (\n    select sum(ST_Length(way)) as len, name from streets where name in (select \"addr:street\" from housenumbers) group by name\n)\n    -- stupid mapnik asks 5 first buildings in the world to get geometry type.\n    -- that fucks everything up because of ordering by distance to street.\n    -- let's feed it with something while waiting for something better\n    select 0 as angle, ''::text as hno, ST_GeomFromEWKT('SRID=900913;LINESTRING(-200 0, 200 0)') as way\n        union all\n    select 0 as angle, ''::text as hno, ST_GeomFromEWKT('SRID=900913;LINESTRING(-200 0, 200 0)') as way\n        union all\n    select 0 as angle, ''::text as hno, ST_GeomFromEWKT('SRID=900913;LINESTRING(-200 0, 200 0)') as way\n        union all\n    select 0 as angle, ''::text as hno, ST_GeomFromEWKT('SRID=900913;LINESTRING(-200 0, 200 0)') as way\n        union all\n    select 0 as angle, ''::text as hno, ST_GeomFromEWKT('SRID=900913;LINESTRING(-200 0, 200 0)') as way\n        union all\n    select \n        angle,\n        hno || case when angle > 75 and angle < 275 then '.' else '' end, \n        way from (\n        select\n            (select len from street_length l where l.name = h.\"addr:street\") len,\n            (select ST_Distance(h.way, l.way) from streets l where l.name != h.\"addr:street\" order by 1 asc limit 1) dist,\n            \n            \"addr:housenumber\" as hno,\n            (\n                select \n                    mod(case when angle > 90 and angle < 270 then 180+angle\n                    else angle end::integer, 360)\n                from (\n                select\n                    360 - degrees(ST_Azimuth(\n                        ST_StartPoint(ST_ShortestLine(h.point, l.way)),\n                        ST_EndPoint(ST_ShortestLine(h.point, l.way))\n                    )) angle\n                from streets l\n                where l.\"name\" = h.\"addr:street\"            \n                order by ST_Distance(h.point, l.way) asc\n                limit 1) p\n            ) as angle,\n            point as way\n        from housenumbers h\n        order by \n            1 desc, 2\n    ) p\n) p\n",
+        "table": "(\nwith \nhousenumbers as (\n    select \n        \"addr:housenumber\" as hno,\n        \"addr:street\", \n        way,\n        way as point \n    from planet_osm_point \n    where (\n    \"addr:housenumber\" is not null\n    and shop is null\n    and office is null\n    and amenity is null\n    and way && !bbox!) \n\n    union all\n\n    select \n        \"addr:housenumber\" as hno,\n        \"addr:street\", \n        way,\n        ST_PointOnSurface(way) as point \n    from planet_osm_polygon \n    where (\"addr:housenumber\" is not null and way_area > 2*3*!pixel_height!*!pixel_width! and way && !bbox!)\n),\nhouse_extent as (select ST_Expand(ST_Extent(way), 600) extent from housenumbers),\nstreets as (\n    select way, name, highway from planet_osm_line l, house_extent where l.name is not null and l.highway is not null and l.way && extent\n    union all\n    select ST_Centroid(way), name, highway from planet_osm_polygon l, house_extent where l.name is not null and l.highway is not null and l.way && extent\n),\nstreet_length as (\n    select sum(ST_Length(way)) as len, name from streets group by name\n)\n    -- stupid mapnik asks 5 first buildings in the world to get geometry type.\n    -- that fucks everything up because of ordering by distance to street.\n    -- let's feed it with something while waiting for something better\n    select 0 as angle, ''::text as hno, ST_GeomFromEWKT('SRID=900913;LINESTRING(-200 0, 200 0)') as way, ''::text as highway\n        union all\n    select 0 as angle, ''::text as hno, ST_GeomFromEWKT('SRID=900913;LINESTRING(-200 0, 200 0)') as way, ''::text as highway\n        union all\n    select 0 as angle, ''::text as hno, ST_GeomFromEWKT('SRID=900913;LINESTRING(-200 0, 200 0)') as way, ''::text as highway\n        union all\n    select 0 as angle, ''::text as hno, ST_GeomFromEWKT('SRID=900913;LINESTRING(-200 0, 200 0)') as way, ''::text as highway\n        union all\n    select 0 as angle, ''::text as hno, ST_GeomFromEWKT('SRID=900913;LINESTRING(-200 0, 200 0)') as way, ''::text as highway\n        union all\n    select \n        angle,\n        hno || case \n            when \n                angle > 75 and \n                angle < 275 and\n                (hno like '%6%' or hno like '%9%')\n            then '.' \n            else '' \n        end, \n        way,\n        highway\n        from (            \n        select\n            hno,\n            angle,\n            point as way,\n            highway\n        from \n            housenumbers h\n            left outer join lateral (select ST_Distance(h.way, l.way) dist, name, way, highway from streets l where l.name = h.\"addr:street\" order by 1 asc limit 1) l on true\n            left outer join street_length sl on (sl.name = h.\"addr:street\")\n            left outer join lateral (\n                select \n                    mod(case when angle > 90 and angle < 270 then 180+angle else angle end::integer, 360) angle\n                from (\n                select\n                    360 - degrees(ST_Azimuth(\n                        ST_StartPoint(ST_ShortestLine(h.point, l.way)),\n                        ST_EndPoint(ST_ShortestLine(h.point, l.way))\n                    )) angle) p\n            ) a on true\n            left outer join lateral (select ST_Distance(h.way, l.way) dist, name from streets l where l.name != h.\"addr:street\" order by 1 asc limit 1) fs on true\n            left outer join street_length fsl on (fsl.name = fs.name)\n        --where l.highway in ('tertiary', 'secondary', 'primary')\n        where (l.dist > !pixel_height!*3 or l.dist is null) and (fs.dist > !pixel_height!*2 or fs.dist is null)\n        order by \n            sl.len desc, -- longer streets need more housenumbers\n            fsl.len desc, -- crossings with longer streets need more attention\n            round(fs.dist/10) asc, -- better to show houses closer to crossings\n            least(angle, 360-angle) asc -- better to show upright labels\n            --(hno like '%0' or hno like '%1') -- better to show round numbers\n    ) p\n) p\n",
         "key_field": "",
         "geometry_field": "way",
         "extent_cache": "custom",
