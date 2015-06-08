@@ -210,15 +210,13 @@
   }
 }
 
-@street_base: lighten(@building_base, 20%);
-
 #hslabels[zoom>=12] {
   text-name: [name];
   text-face-name: @sans;
   text-size: 9;
   text-fill: black;
   text-halo-radius: 1;
-  text-halo-fill: fadeout(white, 30%);
+  text-halo-fill: fadeout(white, 50%);
   text-allow-overlap: false;
   text-dy: 6;
   text-placement: line;
@@ -226,22 +224,6 @@
   [zoom>=14] {
     text-size: 11;
     text-dy: 7;
-  [streethash='0'] {text-halo-fill: spin(@street_base, 1*22);}
-  [streethash='1'] {text-halo-fill: spin(@street_base, 2*22);}
-  [streethash='2'] {text-halo-fill: spin(@street_base, 3*22);}
-  [streethash='3'] {text-halo-fill: spin(@street_base, 4*22);}
-  [streethash='4'] {text-halo-fill: spin(@street_base, 5*22);}
-  [streethash='5'] {text-halo-fill: spin(@street_base, 6*22);}
-  [streethash='6'] {text-halo-fill: spin(@street_base, 7*22);}
-  [streethash='7'] {text-halo-fill: spin(@street_base, 8*22);}
-  [streethash='8'] {text-halo-fill: spin(@street_base, 9*22);}
-  [streethash='9'] {text-halo-fill: spin(@street_base, 10*22);}
-  [streethash='a'] {text-halo-fill: spin(@street_base, 11*22);}
-  [streethash='b'] {text-halo-fill: spin(@street_base, 12*22);}
-  [streethash='c'] {text-halo-fill: spin(@street_base, 13*22);}
-  [streethash='d'] {text-halo-fill: spin(@street_base, 14*22);}
-  [streethash='e'] {text-halo-fill: spin(@street_base, 15*22);}
-  [streethash='f'] {text-halo-fill: spin(@street_base, 16*22);}
   }
   [zoom>=15] {
     text-dy: 0;
