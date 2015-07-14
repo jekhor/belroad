@@ -367,7 +367,31 @@
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select way, highway, tracktype, (case when living_street is not null or service is not null then 1 else 0 end) as service from planet_osm_line where highway in ('path', 'cycleway', 'footway', 'service', 'track','pedestrian','living_street','residential', 'unclassified', 'tertiary', 'secondary', 'primary', 'trunk', 'motorway', 'tertiary_link', 'secondary_link', 'primary_link', 'trunk_link', 'motorway_link') and (bridge is null or not bridge in ('yes', 'true', '1')) and (tunnel is null or not tunnel in ('yes', 'true', '1')) order by z_order) as highways",
+        "table": "(select way, man_made from planet_osm_line where man_made is not NULL) as man_made",
+        "key_field": "",
+        "geometry_field": "way",
+        "extent_cache": "auto",
+        "extent": "2501076.96,6291980.67,3701032.51,7631846.4",
+        "dbname": "gis"
+      },
+      "id": "man_made",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "man_made"
+    },
+    {
+      "geometry": "linestring",
+      "extent": [
+        22.467556599271887,
+        49.10078991480273,
+        33.24694070756235,
+        56.36710850981006
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(select way, highway, tracktype, (case when living_street is not null or service is not null then 1 else 0 end) as service from planet_osm_line where highway in ('path', 'cycleway', 'footway', 'service', 'track','pedestrian','living_street','residential', 'unclassified', 'tertiary', 'secondary', 'primary', 'trunk', 'motorway', 'tertiary_link', 'secondary_link', 'primary_link', 'trunk_link', 'motorway_link', 'construction', 'proposed') and (bridge is null or not bridge in ('yes', 'true', '1')) and (tunnel is null or not tunnel in ('yes', 'true', '1')) order by z_order) as highways",
         "key_field": "",
         "geometry_field": "way",
         "extent_cache": "auto",
@@ -431,6 +455,28 @@
       "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
       "advanced": {},
       "name": "bridges"
+    },
+    {
+      "geometry": "linestring",
+      "id": "route",
+      "class": "route",
+      "Datasource": {
+        "type": "ogr",
+        "file": "data/route.gpx",
+        "layer": "tracks",
+        "all_layers": [
+          "route_points",
+          "routes",
+          "track_points",
+          "waypoints"
+        ]
+      },
+      "layer": "tracks",
+      "srs-name": "WGS84",
+      "srs": "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs",
+      "advanced": {},
+      "name": "route",
+      "status": "off"
     },
     {
       "geometry": "point",

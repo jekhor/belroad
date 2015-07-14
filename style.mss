@@ -10,6 +10,7 @@
 @redroad: #d57c8f;
 @orange: #ffb879;
 @brown: #b89762;
+@construction: #a7ddca;
 
 
 @sans: "PT Sans Regular", "Droid Sans Fallback Regular";
@@ -34,9 +35,16 @@ Map {
 }
 
 #power[zoom>=13] {
-  line-width: 0.5;
-  line-color: fadeout(#d57c8f, 30%);
-  line-dasharray: 20, 2, 2, 2;
+  ::main {
+    line-width: 0.7;
+    line-color: @gray;
+  }
+  ::arrows {
+    line-width: 2;
+    line-color: @gray;
+    line-dasharray: 1, 40;
+    line-cap: round;
+  }
 }
 
 /*  ADMIN BORDERS  */
