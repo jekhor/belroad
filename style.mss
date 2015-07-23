@@ -11,6 +11,7 @@
 @orange: #ffb879;
 @brown: #b89762;
 @construction: #a7ddca;
+@cycleway: #396579;
 
 
 @sans: "PT Sans Regular", "Droid Sans Fallback Regular";

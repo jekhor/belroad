@@ -206,11 +206,15 @@
   }
   
   [highway="path"][zoom>=14],
-  [highway="footway"][zoom>=15],
-  [highway="cycleway"][zoom>=14] {
+  [highway="footway"][zoom>=14] {
     line-width: 0.7;
     line-color: @darkgray;
     line-dasharray: 3;
+  }
+  
+  [highway="cycleway"][zoom>=13] {
+    line-width: 0.9;
+    line-color: @cycleway;
   }
 }
 
