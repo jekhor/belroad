@@ -5,10 +5,10 @@
 
 #subway[zoom>=14] {
   shield-file: url(icons/subway.svg);
-  shield-name: [name];
+//  shield-name: [name];
   shield-face-name: @sans_bold;
-  shield-fill: black;
-  shield-size: 10;
+//  shield-fill: black;
+  shield-size: 8;
   shield-text-dx: 8;
   shield-text-dy: 8;
   shield-placement-type: simple;
